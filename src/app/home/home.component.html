@@ -1,0 +1,12 @@
+
+<section class="">
+  <div class="btn btn-danger btn-lg" *ngIf="authService.authenticated" (click)="authService.logout()">Logout</div>
+</section>
+
+<article class="">
+  <p class="card-docs-description" *ngIf="!authService.authenticated"><a class="btn btn-success" (click)="authService.login()">Login</a></p>
+</article>
+  
+<div *ngIf="authService.authenticated">
+  <app-game></app-game>
+</div>

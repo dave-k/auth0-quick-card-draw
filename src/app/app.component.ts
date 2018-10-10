@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Quick Draw';
+  title = 'Auth0 Quick Draw';
 
   constructor() { }
 
