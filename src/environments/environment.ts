@@ -7,12 +7,8 @@ export const environment = {
   auth: {
     CLIENT_ID: "E4mXHeR95pNqfFqzl66vOCrFi9yoMvG5",
     CLIENT_DOMAIN: "auth0ng-cloud.auth0.com", // e.g., 'you.auth0.com'
-    //REDIRECT: "https://ng-cloud.stackblitz.io/callback",
-    //REDIRECT: "http://localhost:4200/callback",
-    REDIRECT: "https://pariaqwb.github.stackblitz.io/callback",
-    //LOGOUT_URL: "https://ng-cloud.stackblitz.io"
-    //LOGOUT_URL: "http://localhost:4200",
-    LOGOUT_URL: "https://pariaqwb.github.stackblitz.io"
+    REDIRECT: "https://dave-k.github.io/auth0-quick-card-draw/callback",
+    LOGOUT_URL: "https://dave-k.github.io/auth0-quick-card-draw"
   }
 };
 
