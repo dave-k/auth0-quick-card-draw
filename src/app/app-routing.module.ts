@@ -5,6 +5,7 @@ import { HomeComponent } from "./home/home.component";
 import { GameComponent } from "./game/game.component";
 import { CallbackComponent } from "./callback/callback.component";
 import { AuthGuard } from "./auth/auth.guard";
+import {APP_BASE_HREF} from '@angular/common';
 
 const routes: Routes = [
   {
@@ -27,7 +28,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, {provide: APP_BASE_HREF, useValue: '/my/app'}],
   exports: [RouterModule],
   declarations: []
 })
