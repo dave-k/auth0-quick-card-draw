@@ -16,7 +16,7 @@ export function SizeValidator(): ValidatorFn {
     const ndeck = group ? group.get('ndeck').value : new FormControl().value;
     const max = group ? group.get('rank.max').value : new FormControl().value;
     const min = group ? group.get('rank.min').value : new FormControl().value;
-    const suits = group ? group.get('suits').value : [];
+    const suits = group ? group.get('suits').value : new Array();
     const size = group ? group.get('size').value : new FormControl().value;
 
     const invalidObj = { 'size': {value: true }};

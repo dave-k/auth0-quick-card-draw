@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
 
 import { FilterService } from '../filter.service';
-import { DrawService } from '../draw.service';
+import { DeckService } from '../deck.service';
 
 import { Filter } from '../filter';
 import { Suit } from '../suit';
@@ -19,56 +19,50 @@ import { FormValidator, RankValidator } from '../validator';
 })
 
 export class FilterComponent implements OnInit {
-  form: FormGroup;
-  filter : Observable<Filter>;
-  suits : {id: number; suit: string}[] = [];
-  deck : {rank: number; card: string}[] = [];
-  hand : Card[] = [];
-  draw : Card[] = [];
+
+  // Component properties to bind to HTML controls
+  public filter$: Observable<Filter>;
+  public suits:{}[] = Suit.options();
+  public deck:{}[] = Rank.options();
+  public hand: Array<Card> = Array();
+  
+  // Form
+  form: FormGroup = this.fb.group({
+    ndeck: [''],
+    suits: ['', [ Validators.required ]],
+    size:  ['', [ Validators.min(1), Validators.required ]],
+    rank: this.fb.group({
+      max: [''],
+      min: [''],
+    }, { validator: RankValidator })
+  }, { validator: FormValidator() });
 
   constructor(
     private fb: FormBuilder, 
     private filterService: FilterService,
-    private drawService: DrawService) { }
-
+    private deckService: DeckService) { }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      ndeck: [''],
-      suits: ['', [ Validators.required ]],
-      size:  ['', [ Validators.min(1) ]],
-      rank: new FormGroup({
-        max: new FormControl(''),
-        min: new FormControl(''),
-      }, [RankValidator])
-    }, { validator: FormValidator() });
-
-    this.filter = this.filterService.loadFilter().pipe(
+    // Initialize form from filter data
+    this.filter$ = this.filterService.getFilter().pipe(
       tap(filter => this.form.patchValue(filter)));
-
-    // Suit dropdown
-    this.suits = Suit.options();
-    
-    // Max and Min Card dropdown
-    this.deck = Rank.options();
   }
 
   onSubmit() {
     this.quickDraw(this.form.value);
   }
 
-  quickDraw(filter:Filter) {
+  quickDraw(filter: Filter): void {
     this.hand = [];
     this.filterService.updateFilter(filter);
-    this.drawService.getDraw()
-      .subscribe(draw => this.draw = draw);
-
-    for(let i = 0; i < filter.size; i++) {
-      this.hand
-        .push(<Card>this.draw[i]);
-    }
-    
-    this.hand
-      .sort((card1, card2) => Card.sort(card1, card2));
+    this.deckService.getDeck()
+      .subscribe(deck => {
+        for(let i = 0; i < filter.size; i++) {
+          this.hand
+            .push(<Card>deck[i]);
+        }
+        this.hand
+          .sort((card1, card2) => Card.sort(card1, card2));
+      });
   }
 }

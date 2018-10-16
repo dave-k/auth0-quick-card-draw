@@ -15,17 +15,19 @@ export enum Rank {
 }
 
 export namespace Rank {
-  export function toString(rank) {
+
+  export function toString(rank):string {
     // _2 .. _A -> 2 .. A
     return Rank[rank].substr(1);
   }
 
-  export function options() {
-    let options = [];
+  export function options():{}[] {
+    let options:{}[] = [];
     
     for(var r =0; r < 13; ++r) { 
-      options.push( {rank: <any>r, card: Rank.toString(r)} ); 
+      options.push({ id: <Number>r, value: <string>Rank.toString(r) }); 
     }
     return options;
   }
+  
 }

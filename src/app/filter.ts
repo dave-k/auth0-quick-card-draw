@@ -2,8 +2,10 @@ import { Suit } from './suit';
 import { Rank } from './rank';
 
 export class Filter {
-  ndeck: number;    // 1
-  suits: Suit[];    // clubs ...
-  size: number;     // 52
-  rank: {} = { max: Rank, min: Rank };
+  constructor(
+    public suits: Array<Suit> = [ Suit.clubs, Suit.diamonds, Suit.hearts, Suit.spades ],
+    public size: number = 52,
+    public rank: { } = { max: Rank._A, min: Rank._2 },
+    public ndeck: number = 1
+  ) { }
 }

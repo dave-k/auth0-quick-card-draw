@@ -2,39 +2,42 @@ import { TestBed } from '@angular/core/testing';
 
 import { FilterService } from './filter.service';
 import { Filter } from './filter';
-import { of } from 'rxjs';
 
-describe('FilterService', () => {
-  let filterService: FilterService;
-  let filterResponse: Filter = new Filter();
+describe('Service: FilterService', () => {
+  let service: FilterService;
+  let filter: Filter = new Filter();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [FilterService]
     });
 
-    filterService = TestBed.get(FilterService);
+    service = TestBed.get(FilterService);
   });
 
   it('should be created', () => {
-    expect(filterService).toBeTruthy();
+    expect(service).toBeTruthy();
   });
 
-  // Add tests for getFilter() method
-  describe('getFilter', () => {
-    it('should return an Observable<Filter>', () => {
-      filterResponse.ndeck = 1;
-      filterResponse.suits = [0, 1, 2, 3];    // clubs ...
-      filterResponse.size= 5;
-      filterResponse.rank = { max: 12, min: 0 };
-      
-      let response: Filter;
-      //spyOn(filterService, 'getFilter').and.returnValue(of(filterResponse));
+  // Add tests for filter service
+  it('should return an Observable<Filter>',
+    (done: DoneFn) => {
+      service.getFilter().subscribe(value => {
+        expect(value).toEqual(filter);
+        done();
+      });  
+  });
 
-      filterService.getFilter()
-        .subscribe(res => response = res);
+  // Add tests for filter service
+  it('should update filter', (done: DoneFn) => {
+    
+    let filter: Filter = new Filter();
+    filter.ndeck = 2;
+    service.updateFilter(filter);
 
-      expect(response).toEqual(filterResponse);
-    });
+    service.getFilter().subscribe(value => {
+      expect(value.ndeck).toEqual(2);
+      done();
+    });  
   });
 });

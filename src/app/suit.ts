@@ -7,12 +7,13 @@ export enum Suit {
 
 export namespace Suit {
   
-  export function options() {
-    let options = [];
+  export function options():{}[] {
+    let options:{}[] = [];
     
     for(var s =0; s < 4; ++s) { 
-      options.push( {id: <any>s, suit: Suit[s]} ); 
+      options.push({ id: <Number>s, value: <string>Suit[s] }); 
     }
     return options;
   }
+  
 }
