@@ -28,7 +28,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule
   ],
-  providers: [AuthGuard, {provide: APP_BASE_HREF, useValue: '/my/app'}],
+  providers: [AuthGuard, {provide: APP_BASE_HREF, useValue: '/auth0-quick-card-draw'}],
   exports: [RouterModule],
   declarations: []
 })
