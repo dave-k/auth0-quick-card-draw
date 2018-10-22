@@ -1,11 +1,11 @@
 import { Suit } from './suit';
-import { Rank } from './rank';
+import { Rank, IRankMinMax } from './rank';
 
-export class Filter {
+export class Filter { 
   constructor(
     private _suits: Array<Suit> = [ Suit.clubs, Suit.diamonds, Suit.hearts, Suit.spades ],
     private _size: number = 52,
-    private _rank: object = { max: Rank._A, min: Rank._2 },
+    private _rank: IRankMinMax = { max: Rank._A, min: Rank._2 },
     private _ndeck: number = 1
   ) {
     // FormGroup patchValue: make Getters and Setters enumerable
@@ -50,11 +50,11 @@ export class Filter {
     this._size = size;
   }
 
-  public get rank(): object {
+  public get rank(): IRankMinMax {
     return this._rank;
   }
 
-  public set rank(rank: object) {
+  public set rank(rank: IRankMinMax) {
     this._rank = rank;
   }
 
