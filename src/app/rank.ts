@@ -14,6 +14,11 @@ export enum Rank {
   _A
 }
 
+export interface IRankMinMax {
+  max: Rank; 
+  min: Rank;
+}
+
 export namespace Rank {
 
   export function toString(rank):string {
